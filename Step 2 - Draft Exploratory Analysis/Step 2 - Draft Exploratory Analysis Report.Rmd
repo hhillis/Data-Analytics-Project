@@ -1,0 +1,51 @@
+---
+title: 'Stage 2: Draft Exploratory Analysis'
+author: "Holly Hillis"
+date: "2023-10-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Report
+
+### Primary question: How does an increase in conservation easement land affect residential housing prices in the U.S.?
+
+Supply-side: Conservation easements decrease the amount of land available for residential development.
+
+Demand-side: Consumers may prefer to live in areas with more conservation easements.
+
+### Data Description
+
+(I am using different data sets than I talked about in Step 1 after talking to Nicole Karwowski about my project.)
+
+#### Conservation Easements
+
+USDA Farm Service Agency Conservation Easement Data from  https://www.fsa.usda.gov/programs-and-services/conservation-programs/reports-and-statistics/conservation-reserve-program-statistics/index.
+
+From the website, "CRP is a land conservation program administered by the Farm Service Agency (FSA). In exchange for a yearly rental payment, farmers enrolled in the program agree to remove environmentally sensitive land from agricultural production and plant species that will improve environmental health and quality. Contracts for land enrolled in CRP are from 10 to 15 years in length. The long-term goal of the program is to re-establish valuable land cover to help improve water quality, prevent soil erosion, and reduce loss of wildlife habitat."
+
+The data cover 1986 through 2022 and are measured in acres under contract at the end of each fiscal year.
+
+#### Housing Prices
+
+Federal Housing Finance Agency House Price Index data from https://www.fhfa.gov/DataTools/Downloads/Pages/House-Price-Index.aspx.
+
+From the website, "The FHFA House Price Index (FHFA HPI®) is a broad measure of the movement of single-family house prices in the United States. The HPI is a weighted, repeat-sales index, meaning that it measures average price changes in repeat sales or refinancings on the same properties. This information is obtained by reviewing repeat mortgage transactions on single-family properties whose mortgages have been purchased or securitized by Fannie Mae or Freddie Mac since January 1975."
+
+These data were last updated on March 28, 2023, and cover the years 1975 through 2022. The HPI data that I used are standardized to base year 2000.
+
+### Data Processing
+
+For cleaning, I matched the state variables in both data sets to be all caps and spell out the entire state name instead of the postal code. I made county names all caps as well. I changed all of the number variables to be numeric variables in R. I made all missing values "NA"s in R.
+
+There did not appear to be extreme values outside of the normal data generating process. Many conservation easement acres values are zero when there are no acres in a county in the program, so these values are valid. Sometimes this can look like a mistake in the data when some counties do not have conservation acres for many years.
+
+I decided to log transform both conservation easement acres and the HPI measure because I think the association of a percent change in conservation acres to the percent change in housing prices makes the most sense in a regression analysis. Some of the visualizations still use number of conservation acres and housing prices when that makes the most sense in a plot.
+
+### Main Findings
+
+My main finding is that both the average HPI and the number of conservation easement acres have increased over the years. It does make sense that conservation easement acres increase over the years, because generally these acres stay in conservation once they are placed there. The log of HPI increases more and more as time goes on, even after accounting for inflation.
+
